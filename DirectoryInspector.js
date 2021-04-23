@@ -8,7 +8,7 @@ const directoryInspector = (path = __dirname)=>{
                         const files  = fs.readdirSync(path);
                         files.forEach(  (file)=> {
                                 let c_path = path + "/" + file;
-                                if( fs.lstatSync(file).isDirectory() ){
+                                if( fs.lstatSync(c_path).isDirectory() ){
                                         console.log(`${file}/`);
                                 }else{
                                         console.log(file);   
@@ -19,10 +19,14 @@ const directoryInspector = (path = __dirname)=>{
                         throw new Error("The path doesn not exist!!");
                 }
         }catch(e){
-                console.log(e);
+                console.log(":SSSSS",e);
         }
 }
 
-directoryInspector()
-directoryInspector("./")
-directoryInspector("Ksquare")
+if(process.argv[2]){
+        console.log("Path to check: ",`./${process.argv[2]}/`);
+        directoryInspector(`./${process.argv[2]}/`)
+}else{
+        console.log("Path to check: ",`${__dirname}`);
+        directoryInspector()
+}
